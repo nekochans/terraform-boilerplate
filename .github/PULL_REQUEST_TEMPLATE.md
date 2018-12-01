@@ -7,9 +7,6 @@
 # Doneの定義
 [required]
 
-# スクリーンショット
-[optional] ただしUI変更の時は [required]
-
 # 変更点概要
 
 ## 仕様的変更点概要
