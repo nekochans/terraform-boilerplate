@@ -1,6 +1,13 @@
 # terraform-boilerplate
 Terraformの設計を行う際に雛形となるプロジェクトです。
 
+このプロジェクトはAWSの管理に特化していますが、他のCloudのResourcesも管理出来るように設計してあります。
+
+## 想定読者
+
+- ある程度Terraformを使った事がある方
+- AWSに関する基礎的なスキルを持っている方
+
 ## 事前準備
 
 ### Terraformのインストール
