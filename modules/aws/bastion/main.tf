@@ -30,7 +30,7 @@ resource "aws_security_group_rule" "ssh_from_all_to_bastion" {
 
 resource "aws_key_pair" "ssh_key_pair" {
   public_key = "${file(var.ssh_public_key_path)}"
-  key_name   = "${terraform.workspace}_ssh_key"
+  key_name   = "${terraform.workspace}-ssh-key"
 }
 
 resource "aws_instance" "bastion_1" {
@@ -49,7 +49,7 @@ resource "aws_instance" "bastion_1" {
   vpc_security_group_ids = ["${aws_security_group.bastion.id}"]
 
   tags {
-    Name = "${lookup(var.bastion, "${terraform.env}.name", var.bastion["default.name"])}_1"
+    Name = "${lookup(var.bastion, "${terraform.env}.name", var.bastion["default.name"])}-1"
   }
 
   lifecycle {
@@ -63,6 +63,6 @@ resource "aws_eip" "bastion_1" {
   instance = "${aws_instance.bastion_1.id}"
 
   tags {
-    Name = "${lookup(var.bastion, "${terraform.env}.name", var.bastion["default.name"])}_1"
+    Name = "${lookup(var.bastion, "${terraform.env}.name", var.bastion["default.name"])}-1"
   }
 }

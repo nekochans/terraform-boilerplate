@@ -2,7 +2,7 @@ resource "aws_internet_gateway" "igw" {
   vpc_id = "${aws_vpc.vpc.id}"
 
   tags {
-    Name = "${terraform.workspace}_igw"
+    Name = "${terraform.workspace}-igw"
   }
 }
 
@@ -15,7 +15,7 @@ resource "aws_route_table" "public" {
   }
 
   tags {
-    Name = "${terraform.workspace}_public_rt"
+    Name = "${terraform.workspace}-public-rt"
   }
 }
 
