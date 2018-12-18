@@ -2,11 +2,11 @@ variable "bastion" {
   type = "map"
 
   default = {
-    default.name          = "prod_bastion"
-    stg.name              = "stg_bastion"
-    dev.name              = "dev_bastion"
-    qa.name               = "qa_bastion"
-    default.ami           = "ami-00f9d04b3b3092052"
+    default.name          = "prod-bastion"
+    stg.name              = "stg-bastion"
+    dev.name              = "dev-bastion"
+    qa.name               = "qa-bastion"
+    default.ami           = "ami-00a5245b4816c38e6"
     default.instance_type = "t3.micro"
     default.volume_type   = "gp2"
     default.volume_size   = "30"

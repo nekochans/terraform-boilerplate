@@ -1,18 +1,18 @@
 resource "aws_eip" "nat_ip_1" {
   tags {
-    Name = "${terraform.workspace}_nat_ip_1"
+    Name = "${terraform.workspace}-nat-ip-1"
   }
 }
 
 resource "aws_eip" "nat_ip_2" {
   tags {
-    Name = "${terraform.workspace}_nat_ip_2"
+    Name = "${terraform.workspace}-nat-ip-2"
   }
 }
 
 resource "aws_eip" "nat_ip_3" {
   tags {
-    Name = "${terraform.workspace}_nat_ip_3"
+    Name = "${terraform.workspace}-nat-ip-3"
   }
 }
 
@@ -21,7 +21,7 @@ resource "aws_nat_gateway" "nat_1" {
   subnet_id     = "${aws_subnet.public_1.id}"
 
   tags {
-    Name = "${terraform.workspace}_1"
+    Name = "${terraform.workspace}-1"
   }
 }
 
@@ -30,7 +30,7 @@ resource "aws_nat_gateway" "nat_2" {
   subnet_id     = "${aws_subnet.public_2.id}"
 
   tags {
-    Name = "${terraform.workspace}_2"
+    Name = "${terraform.workspace}-2"
   }
 }
 
@@ -39,7 +39,7 @@ resource "aws_nat_gateway" "nat_3" {
   subnet_id     = "${aws_subnet.public_3.id}"
 
   tags {
-    Name = "${terraform.workspace}_3"
+    Name = "${terraform.workspace}-3"
   }
 }
 
@@ -52,7 +52,7 @@ resource "aws_route_table" "private_1" {
   }
 
   tags {
-    Name = "${terraform.workspace}_private_rt_1"
+    Name = "${terraform.workspace}-private-rt-1"
   }
 }
 
@@ -65,7 +65,7 @@ resource "aws_route_table" "private_2" {
   }
 
   tags {
-    Name = "${terraform.workspace}_private_rt_2"
+    Name = "${terraform.workspace}-private-rt-2"
   }
 }
 
@@ -78,7 +78,7 @@ resource "aws_route_table" "private_3" {
   }
 
   tags {
-    Name = "${terraform.workspace}_private_rt_3"
+    Name = "${terraform.workspace}-private-rt-3"
   }
 }
 

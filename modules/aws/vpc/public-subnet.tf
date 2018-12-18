@@ -4,7 +4,7 @@ resource "aws_subnet" "public_1" {
   availability_zone = "${lookup(var.availability_zone, "${terraform.env}.az_1", var.availability_zone["default.az_1"])}"
 
   tags {
-    Name = "${terraform.workspace}_public_1"
+    Name = "${terraform.workspace}-public-1"
   }
 }
 
@@ -14,7 +14,7 @@ resource "aws_subnet" "public_2" {
   availability_zone = "${lookup(var.availability_zone, "${terraform.env}.az_2", var.availability_zone["default.az_2"])}"
 
   tags {
-    Name = "${terraform.workspace}_public_2"
+    Name = "${terraform.workspace}-public-2"
   }
 }
 
@@ -24,6 +24,6 @@ resource "aws_subnet" "public_3" {
   availability_zone = "${lookup(var.availability_zone, "${terraform.env}.az_3", var.availability_zone["default.az_3"])}"
 
   tags {
-    Name = "${terraform.workspace}_public_3"
+    Name = "${terraform.workspace}-public-3"
   }
 }
