@@ -10,20 +10,22 @@ Terraformの設計を行う際に雛形となるプロジェクトです。
 
 ## 事前準備
 
-### Terraformのインストール
-[tfenv](https://github.com/Zordrak/tfenv/blob/master/README.md) の利用を推奨します。
+### Dockerのインストール
 
-Terraformはマイナーバージョンでも破壊的な変更を行う事があるのでバージョンが気軽に切り替えられる事は必須だからです。
+Docker上でTerraformを実行します。
 
-非推奨の機能は次のマイナーバージョンでいきなり削除とかも過去にはあったので、Terraformが警告を無視しない事が非常に大切になります。
+#### 初回起動
 
-`brew install tfenv` でインストールします。
+```bash
 
-その後以下の手順で設定を行います。
+docker-compose up --build -d
+```
 
-- `tfenv install 0.11.10`
-- `tfenv use 0.11.10`
-- `terraform --version` で Terraform v0.11.10 が表示されればOK
+#### 起動
+
+二回目以降は下記のコマンドを実行します。
+
+`docker-compose up -d`
 
 ### AWSのIAMユーザーを作成
 
@@ -64,7 +66,7 @@ aws_secret_access_key = あなたのシークレットアクセスキー
 
 そうしないと複数のAWS環境を管理する際に誤って他の環境に適応してしまう、等の事故が発生する可能性があるからです。
 
-profile名を書き換えた場合、`providers/aws/environments/○○/` 配下の `provider.tf`, `backend.tf` を書き換えて下さい。
+profile名を書き換えた場合、`providers/aws/environments/○○/○○/` 配下の `provider.tf`, `backend.tf` を書き換えて下さい。
 
 ### S3Bucketを作成する
 
@@ -78,35 +80,6 @@ S3Bucketはグローバルの名前空間でユニークな名前になってい
 
 このプロジェクトを元に設計を行う場合は、この部分を自身が作ったS3Bucketに書き換える必要があります。
 
-実戦では本番環境とステージング・開発環境でAWSアカウントが異なるというケースもあるので、 `backend.tf` はGitの管理対象外とするのも有効です。
-
-### `terraform.tfvars` を配置する
-
-`providers/aws/environments/20-bastion/terraform.tfvars` というファイルを作成し、以下の内容を追記して下さい。
-
-```
-ssh_public_key_path = "~/.ssh/dev_nekochans_aws.pem.pub"
-```
-
-これはSSH接続を行う為の公開鍵のパスになります。
-
-各自の環境によって異なると思うので、ここも適時書き換えて下さい。
-
-本プロジェクトでは以下のパスに公開鍵と秘密鍵が存在する想定です。
-
-- dev_nekochans_aws.pem
-- dev_nekochans_aws.pem.pub
-
-例えば `~/.ssh/config` に以下のように記述すれば `ssh my-aws-stg-bastion-1` で接続する事が可能です。
-
-```
-Host my-aws-stg-bastion-1
-    HostName 13.115.164.138
-    Port 22
-    User ec2-user
-    IdentityFile ~/.ssh/dev_nekochans_aws.pem
-```
-
 ## ディレクトリ構成
 
 下記のようなディレクトリ構成になっています。
@@ -118,9 +91,19 @@ terraform-boilerplate/
   └ providers/
      └ aws/
        └ environments/
-         ├ 10-network/
-         ├ 20-bastion/
+         ├ dev/
+         │ ├ 10-network/
+         │ └ 20-xxxx/
+         └ prod/
+           ├ 10-network/
+           └ 20-xxxx/
 ```
+
+### 環境分割
+
+本番環境とステージング・開発環境など複数環境に構築するケースを想定し、`environments/`配下に環境ごとのディレクトリを作成しています。
+
+### 依存関係
 
 `providers` の頭の数字に注目して下さい。
 
@@ -134,13 +117,8 @@ terraform-boilerplate/
 
 - 今はAWSのみだが、他のproviderが増えても大丈夫なように `providers/` を作ってあります
 - 各moduleには特定のリージョンに依存した値はハードコードしない（AZの名前とか）
+- 各moduleには特定の環境に依存した値はハードコードしない
 - マルチリージョンでの運用にも耐えられるディレクトリ設計
-
-`providers/aws/environments/10-network/main.tf` を見ると分かるのですが、VPCを東京リージョンとバージニア北部リージョンで作成するようにしています。
-
-同じ要領で他のmoduleも複数リージョンに同時作成する事が可能です。
-
-ただしmodule内に特定のリージョンに依存した書き方があった場合、この設計は破綻するので機能追加の際は注意する必要があります。
 
 ## コーディング規約
 
@@ -174,15 +152,9 @@ resource "aws_key_pair" "ssh_key_pair" {
 
 他にもタグ名を良く付ける事がありますが、それもこちらのルールの通りケバブケースで命名します。
 
-```
-  tags {
-    Name = "${lookup(var.bastion, "${terraform.env}.name", var.bastion["default.name"])}-1"
-  }
-```
-
 このようなややこしい規則になっている理由ですが、RDSCluster等、一部のリソース名で `_` が禁止文字に設定されている為です。
 
-他にもインデント等細かいルールがありますが、こちらに関しては `terraform fmt` を実行すれば自動整形されるのでこれを利用すれば良いでしょう。
+他にもインデント等細かいルールがありますが、こちらに関しては `terraform fmt -recursive` を実行すれば自動整形されるのでこれを利用すれば良いでしょう。
 
 `terraform fmt` は必ずプロジェクトルートで実行を行ってください。
 
