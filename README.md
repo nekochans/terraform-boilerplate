@@ -10,18 +10,35 @@ Terraformの設計を行う際に雛形となるプロジェクトです。
 
 ## 事前準備
 
-### Dockerのインストール
+### 実行環境
+
+tfenvとDockerの利用を紹介します。
+
+どちらの実行環境でもいいですが、Terraformはマイナーバージョンでも破壊的な変更を行う事があるのでバージョンを気軽に切り替えられる事は必須です。
+
+非推奨の機能が次のマイナーバージョンでいきなり削除されることも過去にはあったので、Terraformの警告を無視しない事が非常に大切になります。
+
+#### tfenv
+
+詳細は[tfenv](https://github.com/Zordrak/tfenv/blob/master/README.md)を確認してください。
+
+`brew install tfenv` でインストールします。
+
+その後以下の手順で設定を行います。
+
+- `tfenv install 0.12.24`
+- `tfenv use 0.12.24`
+- `terraform --version` で Terraform v0.12.24 が表示されればOK
+
+#### Docker
 
 Docker上でTerraformを実行します。
 
-#### 初回起動
+*初回起動*
 
-```bash
+`docker-compose up --build -d`
 
-docker-compose up --build -d
-```
-
-#### 起動
+*起動*
 
 二回目以降は下記のコマンドを実行します。
 
