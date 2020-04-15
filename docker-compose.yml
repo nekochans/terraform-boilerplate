@@ -1,0 +1,12 @@
+version: '3.7'
+services:
+  terraform:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - TERRAFORM_VERSION=0.12.24
+    tty: true
+    volumes:
+      - .:/data
+      - $HOME/.aws:/root/.aws
