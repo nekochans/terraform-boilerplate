@@ -1,8 +1,8 @@
 FROM alpine:3.11
 
-ARG TERRAFORM_VERSION=0.12.24
+ARG TERRAFORM_VERSION=0.12.25
 
-RUN set -x \
+RUN set -eux \
   && apk update\
   && apk add --no-cache curl bash\
   && curl -fSL -o terraform.zip  https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip \
