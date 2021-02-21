@@ -201,7 +201,8 @@ Terraformの開発元である、HashiCorp社が作成したmodule等を見る�
 
 どの記事も実戦で良く使うテクニックが載っている良記事です。
 
-- [Terraform職人入門: 日々の運用で学んだ知見を淡々とまとめる](https://qiita.com/minamijoyo/items/1f57c62bed781ab8f4d7)
-- [Terraformを1年間運用して学んだトラブルパターン4選](https://medium.com/eureka-engineering/terraform%E3%82%921%E5%B9%B4%E9%96%93%E9%81%8B%E7%94%A8%E3%81%97%E3%81%A6%E5%AD%A6%E3%82%93%E3%81%A0%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B34%E9%81%B8-f31b751a14e6)
+- [Terraformのベストプラクティスを学ぶのに役立ったドキュメントのまとめ](https://blog.mmmcorp.co.jp/blog/2021/02/02/terraform-study-document/)
+- [Terraform職人再入門2020](https://qiita.com/minamijoyo/items/3a7467f70d145ac03324)
 - [Terraform Best Practices in 2017](https://qiita.com/shogomuranushi/items/e2f3ff3cfdcacdd17f99)
-- [同僚に「早く言ってよ〜」と言われたTerraform小技](https://blog.grasys.io/post/kyouhei/tips-of-terraform_target-and-ignore_changes-and-plugin-dir/)
+- [Terraform 0.12 のコードを黒魔術にしないために心がけたこと ~ 自分への戒めを込めて ~](https://qiita.com/shogomuranushi/items/266f5ef342fb81a7a5cd)
+- [苦しんで習得したTerraformのマイベストプラクティス](https://tech-blog.cloud-config.jp/2020-06-24-my-best-practices-of-terraform-that-i-learned-through-suffering/)
